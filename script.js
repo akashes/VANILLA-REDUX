@@ -1,6 +1,10 @@
 
-import { createStore } from "redux";
+import { applyMiddleware, createStore } from "redux";
 import { combineReducers } from "redux";
+import reduxLogger from 'redux-logger'
+const { createLogger } = reduxLogger;
+const logger = createLogger()
+
 
 const ORDER_PIZZA="ORDER_PIZZA"; // to avoid typos when using multiple times
 const ORDER_BURGER= 'ORDER_BURGER'; 
@@ -71,13 +75,16 @@ const rootReducer = combineReducers({
     pizza:reducerPizza,
     burger:reducerBurger
 })
-const store = createStore(rootReducer); // create a store with the reducer
+const store = createStore(
+    rootReducer,
+    applyMiddleware(logger)
+); // create a store with the reducer
 //?instead of passing initialState why we are passing reducer :because reducer contains the  initial state and also the logic for state changes
 
 console.log('initial state',store.getState()); // get the initial state of the store
 
 //Register listener via subscribe
-const unsubscribe = store.subscribe(()=>console.log('updated state',store.getState())); // register a listener to log the state when it changes
+const unsubscribe = store.subscribe(()=>{}); // register a listener to log the state when it changes
 
 //Dispatch action
 store.dispatch(orderPizza()); 
