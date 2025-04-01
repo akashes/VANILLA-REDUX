@@ -58,6 +58,9 @@ const reducerBurger=(state=initialStateForBurger,action)=>{
     switch(action.type){
         case "ORDER_BURGER":
             return { ...state,burgerBuns:state.burgerBuns-1  }
+
+            case 'ORDER_PIZZA':
+                return {...state,burgerBuns:state.burgerBuns-1}
            
 
             default:
@@ -87,9 +90,6 @@ console.log('initial state',store.getState()); // get the initial state of the s
 const unsubscribe = store.subscribe(()=>{}); // register a listener to log the state when it changes
 
 //Dispatch action
-store.dispatch(orderPizza()); 
-store.dispatch(orderPizza()); 
-store.dispatch(orderPizza()); 
-store.dispatch(orderBurger())
-unsubscribe(); // unsubscribe the listener
+
 store.dispatch(orderPizza()); // this will not log the state because we have unsubscribed the listener
+unsubscribe(); // unsubscribe the listener
